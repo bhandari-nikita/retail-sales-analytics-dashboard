@@ -1,28 +1,48 @@
-# Retail Sales Analytics Dashboard
+# 📊 Retail Sales Analytics Dashboard
 
-An interactive Retail Sales Analytics Dashboard built to analyze customer purchasing behavior, order trends, product performance, and key business KPIs from retail transaction data.
+An interactive Retail Sales Analytics Dashboard built using **HTML, CSS, JavaScript, and Chart.js** to analyze customer purchasing behavior, product performance, and operational KPIs from retail transaction data.
 
-## Project Overview
-
-This dashboard was built to simulate a real-world business reporting dashboard used by retail and manufacturing organizations. It helps visualize customer behavior, order trends, product performance, and operational KPIs through an interactive interface.
+This project demonstrates practical dashboard development, business analytics, KPI design, and interactive reporting skills relevant to **Data Analyst**, **MIS Executive**, and **ERP Reporting** roles.
 
 ---
 
-## Dashboard Features
+## 🌐 Live Demo
 
-- Interactive KPI Cards
-- Daily Order Trend Analysis
-- Week-over-Week Performance Comparison
-- Customer Purchase Frequency Segmentation
-- Basket Size Distribution
-- Product Velocity Analysis
-- Customer Search & Drill-down
-- Date Range Filtering
-- Responsive Dashboard Design
+🔗 https://bhandari-nikita.github.io/retail-sales-analytics-dashboard/
 
 ---
 
-## Business KPIs
+## 📸 Dashboard Preview
+
+![Dashboard Preview](screenshots/dashboard-overview.jpeg)
+
+---
+
+## 🎯 Project Objective
+
+Businesses generate thousands of retail transactions every day. Without proper visualization, it becomes difficult to identify sales trends, customer behavior, and operational performance.
+
+This dashboard transforms raw transaction data into meaningful business insights through interactive visualizations and performance metrics, enabling faster and more informed decision-making.
+
+---
+
+## ✨ Key Features
+
+- Interactive KPI dashboard
+- Daily trend analysis
+- Week-over-Week performance comparison
+- Customer purchase frequency segmentation
+- Basket size distribution
+- Product velocity analysis
+- Customer search with drill-down
+- Date range filtering
+- Responsive dashboard interface
+
+---
+
+## 📈 Business KPIs
+
+The dashboard tracks several important business metrics, including:
 
 - Total Orders
 - Unique Customers
@@ -30,56 +50,93 @@ This dashboard was built to simulate a real-world business reporting dashboard u
 - Repeat Purchase Rate
 - Total Items Dispatched
 - Peak Trading Day
-- Customer Retention Analysis
 - Product Order Frequency
+- Customer Retention Insights
 - Weekly Performance Comparison
 
 ---
 
-## Technologies Used
+## 💡 Business Insights
 
-- HTML5
-- CSS3
-- JavaScript (ES6)
-- Chart.js
+The dashboard helps answer questions such as:
+
+- Which days generate the highest order volume?
+- How many customers make repeat purchases?
+- Which products are ordered most frequently?
+- How does weekly performance compare over time?
+- What is the average basket size?
+- Which customers contribute multiple purchases?
 
 ---
 
-## Skills Demonstrated
+## 🛠 Technology Stack
 
-- Data Analytics
+| Technology | Purpose |
+|------------|---------|
+| HTML5 | Dashboard Structure |
+| CSS3 | Responsive UI Design |
+| JavaScript (ES6) | Data Processing & Interactivity |
+| Chart.js | Data Visualization |
+
+---
+
+## 📂 Project Structure
+
+```
+retail-sales-analytics-dashboard/
+│
+├── Dashboard.html
+├── README.md
+└── screenshots/
+    └── dashboard-overview.jpeg
+```
+
+---
+
+## 🚀 Skills Demonstrated
+
 - Dashboard Development
-- Business KPI Design
 - Data Visualization
-- Customer Segmentation
+- Business KPI Design
 - Retail Analytics
+- Customer Segmentation
 - Interactive Reporting
+- Business Intelligence Fundamentals
+- Frontend Development
 
 ---
 
-## Dataset
+## 📊 Dataset
 
 **Source:** Kaggle Retail Basket Dataset
 
-*(Add the exact Kaggle dataset link after uploading.)*
+> https://www.kaggle.com/datasets/berkayalan/ecommerce-sales-dataset
 
 ---
 
-## Future Improvements
+## 🔮 Future Enhancements
 
 - Power BI version
 - SQL database integration
-- Python data preprocessing pipeline
+- Python (Pandas) data preprocessing pipeline
 - Automated reporting
-- Sales forecasting dashboard
+- Sales forecasting
+- Inventory analytics
+- Export reports to PDF/Excel
 
 ---
 
-## Author
+## 👤 Author
 
 **Nikita Bhandari**
 
-Aspiring Data Analyst
+Aspiring Data Analyst | SQL | Advanced Excel | Dashboard Development | Python | TallyPrime
 
-- LinkedIn: *(Add your LinkedIn profile URL)*
-- GitHub: *(Add your GitHub profile URL)*
+- GitHub: https://github.com/bhandari-nikita
+- LinkedIn: https://www.linkedin.com/in/nikita-b-8b186a336
+
+---
+
+## ⭐ Feedback
+
+If you have suggestions for improving this dashboard or would like to discuss data analytics, feel free to connect with me on LinkedIn or open an issue in this repository.
