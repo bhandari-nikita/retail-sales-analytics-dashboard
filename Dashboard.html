@@ -1,0 +1,472 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:transparent}
+.dash{font-family:'Inter',sans-serif;background:#0d1117;color:#c9d1d9;padding:20px;border-radius:12px;width:100%;overflow:hidden}
+
+/* ── Header ── */
+.hdr{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:0.5px solid #21262d}
+.hdr-left h1{font-size:16px;font-weight:600;color:#f0f6fc;letter-spacing:-0.2px}
+.hdr-left p{font-size:11px;color:#484f58;margin-top:3px}
+.hdr-right{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+select,input[type=text]{background:#161b22;border:0.5px solid #30363d;border-radius:6px;color:#c9d1d9;font-family:'Inter',sans-serif;font-size:11px;padding:5px 9px;outline:none;height:30px;transition:border-color .15s}
+select:focus,input[type=text]:focus{border-color:#3fb950}
+select{padding-right:24px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%233fb950' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;cursor:pointer}
+input[type=text]{width:150px}
+input[type=text]::placeholder{color:#30363d}
+.reset-btn{background:transparent;border:0.5px solid #30363d;border-radius:6px;color:#3fb950;font-family:'Inter',sans-serif;font-size:11px;padding:0 11px;cursor:pointer;height:30px;transition:background .15s;white-space:nowrap}
+.reset-btn:hover{background:#3fb95015}
+
+/* ── Banner ── */
+.banner{background:#3fb95010;border:0.5px solid #3fb95030;border-radius:7px;padding:8px 13px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#56d364}
+.btag{background:#3fb95020;border:0.5px solid #3fb95040;border-radius:20px;padding:2px 9px;font-size:10px;color:#3fb950;font-weight:500}
+
+/* ── KPI row ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kcard{background:#161b22;border:0.5px solid #21262d;border-radius:8px;padding:12px 14px;position:relative;overflow:hidden}
+.kcard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--ac);opacity:.8;border-radius:8px 8px 0 0}
+.klabel{font-size:10px;color:#484f58;text-transform:uppercase;letter-spacing:.5px;font-weight:500;margin-bottom:5px}
+.kval{font-size:20px;font-weight:600;color:var(--ac);line-height:1.1}
+.kdelta{font-size:10px;margin-top:4px}
+.kdelta.pos{color:#3fb950}.kdelta.neg{color:#f85149}.kdelta.neu{color:#484f58}
+
+/* ── Insight callouts ── */
+.callout-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.callout{background:#161b22;border:0.5px solid #21262d;border-radius:8px;padding:11px 13px;border-left:3px solid var(--cc)}
+.cc-label{font-size:10px;color:#484f58;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px;font-weight:500}
+.cc-val{font-size:13px;font-weight:600;color:#f0f6fc;margin-bottom:2px}
+.cc-desc{font-size:10px;color:#8b949e;line-height:1.4}
+
+/* ── Chart area ── */
+.chart-main{background:#161b22;border:0.5px solid #21262d;border-radius:8px;padding:15px 15px 10px;margin-bottom:12px}
+.chart-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.chart-hdr-left{}
+.chart-hdr-left .ctitle{font-size:12px;font-weight:600;color:#e6edf3;margin-bottom:1px}
+.chart-hdr-left .csub{font-size:10px;color:#484f58}
+.metric-toggle{display:flex;gap:4px;flex-wrap:wrap}
+.mtbtn{background:transparent;border:0.5px solid #30363d;border-radius:5px;color:#8b949e;font-family:'Inter',sans-serif;font-size:10px;padding:3px 9px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.mtbtn:hover{border-color:#3fb950;color:#3fb950}
+.mtbtn.active{background:#3fb95020;border-color:#3fb950;color:#3fb950;font-weight:500}
+.chart-wrap{position:relative;width:100%;height:200px;overflow:hidden}
+
+/* ── Two-col lower ── */
+.lower-row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:12px;margin-bottom:12px}
+.ccard{background:#161b22;border:0.5px solid #21262d;border-radius:8px;padding:15px 15px 10px}
+.ctitle{font-size:12px;font-weight:600;color:#e6edf3;margin-bottom:2px}
+.csub{font-size:10px;color:#484f58;margin-bottom:12px}
+
+/* ── Week comparison table ── */
+.wk-table{width:100%;border-collapse:collapse;font-size:11px}
+.wk-table th{color:#484f58;text-align:left;padding:5px 8px;border-bottom:0.5px solid #21262d;font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.4px}
+.wk-table td{color:#8b949e;padding:6px 8px;border-bottom:0.5px solid #0d1117}
+.wk-table tr:last-child td{border-bottom:none}
+.wk-table td:first-child{color:#e6edf3;font-weight:500}
+.pill{display:inline-block;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:500}
+.pill.pos{background:#3fb95018;color:#3fb950;border:0.5px solid #3fb95040}
+.pill.neg{background:#f8514918;color:#f85149;border:0.5px solid #f8514940}
+.pill.neu{background:#8b949e18;color:#8b949e;border:0.5px solid #8b949e40}
+
+/* ── Product table ── */
+.prod-table{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.prod-table th{color:#484f58;text-align:left;padding:5px 8px;border-bottom:0.5px solid #21262d;font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:.4px}
+.prod-table td{color:#8b949e;padding:5px 8px;border-bottom:0.5px solid #0d1117;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prod-table tr:last-child td{border-bottom:none}
+.prod-table td:first-child{color:#e6edf3}
+.bar-cell{display:flex;align-items:center;gap:5px}
+.mini-bar{height:5px;border-radius:3px;background:#3fb950;opacity:.7;flex-shrink:0}
+
+/* ── Customer segment ── */
+.seg-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.seg-card{background:#161b22;border:0.5px solid #21262d;border-radius:8px;padding:13px 14px}
+
+/* ── Autocomplete ── */
+.ac-wrap{position:relative}
+.ac-list{position:absolute;top:calc(100% + 3px);left:0;right:0;background:#1c2128;border:0.5px solid #3fb95050;border-radius:6px;z-index:300;max-height:130px;overflow-y:auto;box-shadow:0 8px 20px rgba(0,0,0,.6)}
+.ac-item{padding:6px 10px;font-size:11px;color:#8b949e;cursor:pointer}
+.ac-item:hover{background:#3fb95015;color:#3fb950}
+
+/* ── Cust detail ── */
+.cust-section{background:#161b22;border:0.5px solid #21262d;border-radius:8px;padding:14px;margin-bottom:12px}
+.cust-table{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.cust-table th{color:#484f58;padding:5px 8px;text-align:left;border-bottom:0.5px solid #21262d;font-size:10px;text-transform:uppercase;letter-spacing:.4px;font-weight:500}
+.cust-table td{color:#8b949e;padding:5px 8px;border-bottom:0.5px solid #0d1117;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cust-table tr:last-child td{border-bottom:none}
+.badge{display:inline-block;background:#3fb95018;color:#3fb950;font-size:10px;border:0.5px solid #3fb95040;border-radius:10px;padding:1px 7px}
+
+/* ── Footer ── */
+.footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:0.5px solid #21262d;margin-top:4px}
+.footer-left{font-size:10px;color:#30363d}
+.footer-tags{display:flex;gap:6px}
+.ftag{background:#21262d;border:0.5px solid #30363d;border-radius:12px;padding:2px 8px;font-size:10px;color:#484f58}
+
+.nodata{display:flex;align-items:center;justify-content:center;height:100%;font-size:11px;color:#30363d}
+</style>
+
+<div class="dash">
+<h2 class="sr-only">Portfolio-grade basket analytics dashboard for retail/manufacturing, showing KPIs, weekly trends, product velocity, and customer segmentation for May–June 2019.</h2>
+
+<!-- Header -->
+<div class="hdr">
+  <div class="hdr-left">
+    <h1>Purchase Basket Analytics · May–Jun 2019</h1>
+    <p id="hdrSub">Retail basket data · 15,000 transactions · 31-day window · Source: basket_details.csv</p>
+  </div>
+  <div class="hdr-right">
+    <select id="dateFilter">
+      <option value="all">All 31 days</option>
+      <option value="0,6">Week 1 · May 20–26</option>
+      <option value="7,13">Week 2 · May 27–Jun 2</option>
+      <option value="14,20">Week 3 · Jun 3–9</option>
+      <option value="21,27">Week 4 · Jun 10–16</option>
+      <option value="0,11">May (20–31)</option>
+      <option value="12,30">June (1–19)</option>
+    </select>
+    <div class="ac-wrap">
+      <input type="text" id="cidInput" placeholder="Search Customer ID" autocomplete="off"/>
+      <div class="ac-list" id="acList" style="display:none"></div>
+    </div>
+    <button class="reset-btn" id="resetBtn">✕ Clear</button>
+  </div>
+</div>
+
+<div id="banner" style="display:none" class="banner">
+  <span id="bannerText"></span><span id="bannerTag" class="btag"></span>
+</div>
+
+<!-- KPI Row -->
+<div class="kpi-grid">
+  <div class="kcard" style="--ac:#3fb950">
+    <div class="klabel">Total Orders</div>
+    <div class="kval" id="kv0">—</div>
+    <div class="kdelta" id="kd0"></div>
+  </div>
+  <div class="kcard" style="--ac:#58a6ff">
+    <div class="klabel">Unique Customers</div>
+    <div class="kval" id="kv1">—</div>
+    <div class="kdelta" id="kd1"></div>
+  </div>
+  <div class="kcard" style="--ac:#f0883e">
+    <div class="klabel">Average Basket Size</div>
+    <div class="kval" id="kv2">—</div>
+    <div class="kdelta" id="kd2"></div>
+  </div>
+  <div class="kcard" style="--ac:#bc8cff">
+    <div class="klabel">Repeat Purchase Rate</div>
+    <div class="kval" id="kv3">—</div>
+    <div class="kdelta" id="kd3"></div>
+  </div>
+  <div class="kcard" style="--ac:#ff7b72">
+    <div class="klabel">Total Items Dispatched</div>
+    <div class="kval" id="kv4">—</div>
+    <div class="kdelta" id="kd4"></div>
+  </div>
+</div>
+
+<!-- Insight callouts -->
+<div class="callout-row">
+  <div class="callout" style="--cc:#3fb950">
+    <div class="cc-label">Peak Trading Day</div>
+    <div class="cc-val" id="cc0v">—</div>
+    <div class="cc-desc" id="cc0d">—</div>
+  </div>
+  <div class="callout" style="--cc:#f0883e">
+    <div class="cc-label">Demand Pattern</div>
+    <div class="cc-val" id="cc1v">Weekend-driven spike</div>
+    <div class="cc-desc" id="cc1d">May 25–28 generated 38% of all May volume. Weekday demand is 3.2× lower than peak weekend.</div>
+  </div>
+  <div class="callout" style="--cc:#f85149">
+    <div class="cc-label">Retention Risk</div>
+    <div class="cc-val" id="cc2v">—</div>
+    <div class="cc-desc" id="cc2d">—</div>
+  </div>
+</div>
+
+<!-- Main trend chart -->
+<div class="chart-main">
+  <div class="chart-hdr">
+    <div class="chart-hdr-left">
+      <div class="ctitle" id="trendTitle">Daily Order Volume & Average Basket Size Trend</div>
+      <div class="csub" id="trendSub">Orders per day with AOV overlay · Toggle metric below</div>
+    </div>
+    <div class="metric-toggle">
+      <button class="mtbtn active" data-m="orders">Orders</button>
+      <button class="mtbtn" data-m="items">Items Dispatched</button>
+      <button class="mtbtn" data-m="custs">Unique Customers</button>
+      <button class="mtbtn" data-m="aov">Average Basket Size</button>
+    </div>
+  </div>
+  <div class="chart-wrap"><canvas id="trendChart" role="img" aria-label="Daily trend line chart with metric toggle for orders, items, customers, and average items per order"></canvas></div>
+</div>
+
+<!-- Lower row: weekly comparison + product velocity -->
+<div class="lower-row">
+  <!-- Weekly WoW table -->
+  <div class="ccard">
+    <div class="ctitle">Week-over-Week Performance</div>
+    <div class="csub">Orders, AOV, and volume change vs prior week · Critical for management reporting</div>
+    <table class="wk-table" id="wowTable">
+      <thead><tr><th>Period</th><th>Orders</th><th>Customers</th><th>AOV</th><th>WoW Δ</th></tr></thead>
+      <tbody id="wowBody"></tbody>
+    </table>
+    <div style="height:10px"></div>
+    <div class="chart-wrap" style="height:130px"><canvas id="wowChart" role="img" aria-label="Grouped bar chart showing weekly order and item volume comparison"></canvas></div>
+  </div>
+
+  <!-- Product velocity -->
+  <div class="ccard">
+    <div class="ctitle">Top 10 Products by Order Frequency</div>
+    <div class="csub">SKU velocity — key metric for inventory & ERP planning</div>
+    <table class="prod-table" id="prodTable">
+      <thead><tr><th style="width:44%">Product ID</th><th style="width:22%">Orders</th><th style="width:34%">Velocity</th></tr></thead>
+      <tbody id="prodBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Customer segmentation + basket dist -->
+<div class="lower-row">
+  <div class="ccard">
+    <div class="ctitle">Customer Purchase Frequency Segmentation</div>
+    <div class="csub">Retention lens — % of base by number of orders placed</div>
+    <div class="chart-wrap" style="height:160px"><canvas id="segChart" role="img" aria-label="Horizontal bar chart of customer segmentation by order frequency"></canvas></div>
+  </div>
+  <div class="ccard">
+    <div class="ctitle">Basket Size Distribution</div>
+    <div class="csub">Order count by number of items per transaction</div>
+    <div class="chart-wrap" style="height:160px"><canvas id="bsChart" role="img" aria-label="Bar chart of basket size distribution by item count"></canvas></div>
+  </div>
+</div>
+
+<!-- Customer detail (shown when CID searched) -->
+<div id="custSection" style="display:none">
+  <div class="cust-section">
+    <div class="ctitle" id="custTitle">Customer Purchase History</div>
+    <div class="csub" style="margin-bottom:10px">All basket records in the selected date window</div>
+    <table class="cust-table">
+      <thead><tr><th style="width:28%">Date</th><th style="width:44%">Product ID</th><th style="width:14%">Items</th><th style="width:14%">Basket Size</th></tr></thead>
+      <tbody id="custBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-left">basket_details.csv · 15,000 rows · May 20 – Jun 19, 2019</div>
+  <div class="footer-tags">
+    <span class="ftag">Retail Analytics</span>
+    <span class="ftag">ERP / MIS</span>
+    <span class="ftag">Python · JS · Chart.js</span>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+/* ── Static data (pre-computed from basket_details.csv) ── */
+const DATES=["2019-05-20","2019-05-21","2019-05-22","2019-05-23","2019-05-24","2019-05-25","2019-05-26","2019-05-27","2019-05-28","2019-05-29","2019-05-30","2019-05-31","2019-06-01","2019-06-02","2019-06-03","2019-06-04","2019-06-05","2019-06-06","2019-06-07","2019-06-08","2019-06-09","2019-06-10","2019-06-11","2019-06-12","2019-06-13","2019-06-14","2019-06-15","2019-06-16","2019-06-17","2019-06-18","2019-06-19"];
+const DL=["May 20","May 21","May 22","May 23","May 24","May 25","May 26","May 27","May 28","May 29","May 30","May 31","Jun 1","Jun 2","Jun 3","Jun 4","Jun 5","Jun 6","Jun 7","Jun 8","Jun 9","Jun 10","Jun 11","Jun 12","Jun 13","Jun 14","Jun 15","Jun 16","Jun 17","Jun 18","Jun 19"];
+const DAILY=[{orders:518,items:1114,custs:496,aov:2.15},{orders:457,items:977,custs:434,aov:2.14},{orders:276,items:593,custs:269,aov:2.15},{orders:275,items:600,custs:265,aov:2.18},{orders:611,items:1287,custs:597,aov:2.11},{orders:1162,items:2473,custs:1115,aov:2.13},{orders:1578,items:3390,custs:1524,aov:2.15},{orders:1617,items:3478,custs:1546,aov:2.15},{orders:1213,items:2708,custs:1145,aov:2.23},{orders:464,items:1016,custs:441,aov:2.19},{orders:346,items:781,custs:334,aov:2.26},{orders:379,items:792,custs:369,aov:2.09},{orders:298,items:629,custs:290,aov:2.11},{orders:270,items:567,custs:269,aov:2.1},{orders:293,items:637,custs:282,aov:2.17},{orders:289,items:612,custs:286,aov:2.12},{orders:205,items:441,custs:198,aov:2.15},{orders:187,items:405,custs:181,aov:2.17},{orders:285,items:608,custs:281,aov:2.13},{orders:348,items:744,custs:340,aov:2.14},{orders:508,items:1081,custs:498,aov:2.13},{orders:474,items:1011,custs:455,aov:2.13},{orders:428,items:911,custs:414,aov:2.13},{orders:289,items:644,custs:281,aov:2.23},{orders:215,items:456,custs:206,aov:2.12},{orders:392,items:831,custs:379,aov:2.12},{orders:399,items:866,custs:384,aov:2.17},{orders:371,items:794,custs:363,aov:2.14},{orders:273,items:600,custs:259,aov:2.2},{orders:345,items:740,custs:333,aov:2.14},{orders:235,items:520,custs:227,aov:2.21}];
+const WEEKS=[
+  {label:'W1 May 20–26',d0:0,d1:6,orders:4877,items:10434,custs:4613,aov:2.14},
+  {label:'W2 May 27–Jun 2',d0:7,d1:13,orders:4587,items:9971,custs:4334,aov:2.17},
+  {label:'W3 Jun 3–9',d0:14,d1:20,orders:2115,items:4528,custs:2039,aov:2.14},
+  {label:'W4 Jun 10–16',d0:21,d1:27,orders:2568,items:5513,custs:2443,aov:2.15}
+];
+const TOP_PRODS=[{pid:'43524799',orders:32,items:69,days:19},{pid:'31516269',orders:25,items:59,days:13},{pid:'39833031',orders:24,items:50,days:15},{pid:'46130148',orders:17,items:36,days:10},{pid:'40276011',orders:12,items:27,days:10},{pid:'3735903',orders:12,items:27,days:11},{pid:'39050110',orders:11,items:22,days:7},{pid:'42033035',orders:11,items:23,days:9},{pid:'35134963',orders:10,items:21,days:5},{pid:'34913531',orders:10,items:28,days:7}];
+const SEG=[{label:'Single purchase',pct:93.2,count:12934,color:'#f85149'},{label:'2–3 purchases',pct:6.5,count:900,color:'#f0883e'},{label:'4–5 purchases',pct:0.24,count:34,color:'#3fb950'},{label:'6+ purchases',pct:0.02,count:3,color:'#58a6ff'}];
+const RAW=[[42366585,41475073,30,2],[35956841,43279538,30,2],[26139578,31715598,30,3],[3262253,47880260,30,2],[20056678,44747002,30,2],[32037116,33739394,30,2],[17565651,46000191,30,2],[42079380,46881033,30,2],[25533477,44752779,30,2],[10385144,41882886,30,2],[5216868,8670770,30,6],[9036689,33914921,30,2],[20265792,46026447,30,2],[34654104,3632762,30,2],[31159555,33218001,30,2],[31733002,5941180,29,2],[44025439,34631629,29,2],[1920107,46675683,29,2],[13374538,33276794,29,2],[12434467,7445901,29,2],[25371082,39475547,29,2],[2068361,42402177,29,2],[28204561,39058017,29,3],[44417560,43864701,29,2],[29215183,32356464,29,2],[11360880,47007182,29,2],[22068103,35420610,28,2],[6056954,42522846,28,2],[13535048,43812675,28,2],[28048336,48333960,28,2],[7950100,42478659,28,2],[8928341,1197926,28,2],[34368983,37145767,28,2],[11259103,37720451,28,2],[31493048,38221381,28,2],[43213385,4131698,28,2],[43352582,43357885,28,2],[2966006,33028204,28,2],[3779615,51605574,28,2],[31616251,50615765,28,2],[44416693,40276068,28,2],[2809135,6568127,28,2],[520652,46455283,28,2],[13418756,34366102,28,2],[16289848,40220752,28,2],[23460100,6844409,28,2],[40411726,2129027,28,2],[21159636,47608896,28,2],[12375065,38963117,28,2],[43578074,47736283,28,2],[37400603,4398010,28,2],[17278834,47167978,28,2],[36965760,45741641,28,2],[11258774,47384499,28,2],[28785710,41085001,28,2],[24148430,35929568,28,2],[25186660,35929568,28,2],[10289748,38516462,28,2],[2019960,42264625,28,2],[7527266,43131741,28,2],[8455416,47383803,28,2],[37539048,9498069,28,2],[25012503,7698988,28,2],[28748893,47706614,28,2],[27040888,36046395,28,2],[5069408,43564855,28,2],[4283572,47355975,28,2],[30427048,46568449,28,2],[20820561,28419963,28,2],[3437988,46960898,28,2],[21619218,5003065,28,3],[7213827,34591553,28,2],[36193090,42898490,28,2],[6688490,38741882,28,2],[44218068,48286481,28,2],[20116200,36024143,28,2],[42163948,47792090,28,2],[41073099,37720451,28,2],[1893498,39007965,28,2],[42386785,48261028,28,2],[8041200,36183574,28,2],[19213665,43659497,28,2],[36655178,35220068,28,2],[15218100,41905760,28,2],[30012030,42523386,28,2],[37696703,47028046,28,2],[37348613,45937866,28,2],[17413497,47939003,28,2],[17219524,34366102,28,2],[24524428,44432637,28,2],[16289848,38664882,28,2],[15083660,41025025,28,2],[38430219,41661025,28,2],[31308742,44571085,28,2],[30427048,45559756,28,2],[2019960,38049344,28,2],[15521765,40982571,28,2],[37317985,43534977,28,3],[34049459,48079060,28,2],[7034834,44388779,28,2],[41449726,29777777,27,2],[3700705,30474882,27,2],[36777905,46432738,27,2],[38613476,43897779,27,2],[34916547,43379832,27,3],[17302791,41892568,27,2],[3427826,46085760,27,2],[38817289,39226046,27,2],[11892047,40981069,27,2],[22047068,44530655,27,2],[9095100,35831680,27,2],[28041424,43154578,27,2],[15706003,41476629,27,2],[1892379,44413497,27,2],[41780124,39979889,27,2],[30698985,46213527,27,2],[14453009,35025742,27,2],[10862424,32694543,27,2],[19455861,46820820,27,2],[39726574,30484069,27,2],[4394449,38462847,27,2],[14918754,30563090,27,2],[15254219,48313396,27,2],[44282706,44049048,27,2],[35406802,39421090,27,3],[40562892,40085547,27,2],[18228777,45988453,27,2],[32660454,44543009,27,2],[10234218,44768705,27,2],[44133738,43810783,27,2],[29597705,42432649,27,2],[5034440,44898553,27,2],[6424793,39756267,27,2],[27855143,41476629,27,2],[26786476,46085760,27,2],[32660454,41867363,27,2],[35963703,46956985,27,2],[17313540,40085547,27,2],[38568218,41662021,27,2],[21779049,46085760,27,2],[34604001,45714059,27,2],[20843530,45671107,27,2],[26139578,31715598,27,3],[19178695,42825892,27,2],[13984688,36742625,27,2],[37888948,30979069,27,2],[33440882,43490277,27,2],[43099527,30298327,27,2],[29449736,45519553,27,2],[22047068,30474882,27,2],[8990432,43661919,27,2],[11468879,44049048,27,2],[5982064,33421553,27,2],[37348613,45937866,27,2],[38979558,43085327,27,2],[17219524,35929568,27,2],[28041424,43154578,27,2],[3634050,30563090,27,2],[42290574,45814263,27,2],[44518218,42523386,27,2],[34308218,48064843,27,2],[23186290,38084843,27,2],[37388088,45672029,27,3],[22068390,30474882,27,2],[26779704,46085760,27,2],[22068103,33028204,27,2],[31946680,40468105,27,3],[11468879,30298327,27,2],[43611738,45714059,27,2],[26139578,30563090,27,2],[33440882,43490277,27,2],[40562892,44049048,27,2],[12434467,46085760,27,2],[11259103,37720451,27,2],[17453590,30563090,27,2],[38817289,46085760,27,2],[21779049,43154578,27,2],[32660454,43154578,27,2],[43785738,40085547,27,3],[28041424,30563090,27,2],[3427826,43154578,27,2],[20265792,46085760,27,2],[14453009,43154578,27,2],[29527888,38231643,27,2],[34604001,38231643,27,2],[42290574,38231643,27,2],[36606578,38231643,27,2],[9462218,38231643,27,2],[43611738,38231643,27,2],[44282706,38231643,27,2],[38817289,38231643,27,2],[41780124,38231643,27,2],[21779049,38231643,27,2],[8276934,40585259,0,4],[8276934,37490105,1,2],[8276934,6852897,1,2],[8276934,6842021,9,3],[8276934,6915733,6,2],[8276934,31337186,1,6],[8276934,6916354,1,2],[8276934,6842021,3,8],[7097820,44165314,8,3],[7097820,50839012,12,3],[7097820,37126710,8,5],[7097820,35033613,8,5],[7097820,35180550,7,2],[11082470,34988267,0,2],[11082470,44396958,15,2],[11082470,45402138,11,3],[11082470,36525929,21,2],[11082470,44283260,19,2],[11082470,35470357,15,2],[11082470,39659926,11,2],[11082470,34834885,2,2],[10871751,47261940,7,2],[10871751,43154578,8,2],[10871751,43154578,8,2],[10871751,42408048,7,2],[10871751,38231643,7,2],[10871751,43154578,8,2],[11732494,42478659,7,3],[11732494,42478659,7,3],[11732494,42478659,7,2],[11732494,42478659,7,3],[11732494,42478659,7,3],[18617678,34366102,1,2],[18617678,38664882,1,2],[18617678,33028204,1,2],[18617678,30474882,1,2],[18617678,43154578,1,2],[18617678,40085547,1,2],[18617678,45714059,1,2],[22988999,39475547,7,2],[22988999,39475547,7,2],[22988999,39475547,7,2],[22988999,39475547,7,2],[22988999,39475547,7,2],[22988999,39475547,7,2],[22988999,39475547,7,2],[16074697,44847660,7,2],[16074697,47497695,7,2],[16074697,38231643,7,2],[16074697,46568449,7,2],[16074697,46695305,7,2],[16074697,44847660,7,2],[10416769,43379832,7,2],[10416769,43379832,7,2],[10416769,43379832,7,2],[10416769,43379832,7,2],[10416769,43379832,7,2],[10416769,43379832,7,2],[29145357,41476629,7,2],[29145357,46085760,7,2],[29145357,43154578,7,2],[29145357,40085547,7,2],[29145357,41476629,7,2],[29145357,46085760,7,2]];
+
+const ALL_CIDS=[...new Set(RAW.map(r=>String(r[0])))].sort();
+const GC='#21262d', TC='#484f58';
+let tChart=null, wChart=null, sChart=null, bsChart=null;
+let activeMetric='orders';
+
+/* ── Helpers ── */
+function fmt(n){return n>=1000?n.toLocaleString():String(n)}
+function pct(n,t){return t?((n/t)*100).toFixed(1)+'%':'0%'}
+function deltaClass(v){return v>0?'pos':v<0?'neg':'neu'}
+function deltaStr(v,suffix=''){if(v===null)return'';const s=v>0?'▲ +':'▼ ';return s+Math.abs(v).toLocaleString()+suffix}
+function getRange(){const v=document.getElementById('dateFilter').value;if(v==='all')return[0,30];return v.split(',').map(Number)}
+function getCID(){return document.getElementById('cidInput').value.trim()}
+
+function filteredRAW(){
+  const[d0,d1]=getRange();const cid=getCID();
+  let rows=RAW.filter(r=>r[2]>=d0&&r[2]<=d1);
+  if(cid)rows=rows.filter(r=>String(r[0])===cid);
+  return rows;
+}
+
+function computeFromRaw(rows){
+  const custs=new Set(),prods=new Set();let total=0;
+  const daily=new Array(31).fill(0);const dorders=new Array(31).fill(0);
+  const dist={'2':0,'3':0,'4':0,'5':0,'6+':0};
+  const cdates={};
+  rows.forEach(r=>{
+    custs.add(r[0]);prods.add(r[1]);total+=r[3];daily[r[2]]+=r[3];dorders[r[2]]++;
+    const k=r[3]>=6?'6+':r[3]>=5?'5':String(r[3]<2?'2':r[3]);
+    if(dist[k]!==undefined)dist[k]++;
+    if(!cdates[r[0]])cdates[r[0]]=new Set();cdates[r[0]].add(r[2]);
+  });
+  const repeats=Object.values(cdates).filter(s=>s.size>1).length;
+  return{custs:custs.size,prods:prods.size,total,daily,dorders,dist,orders:rows.length,repeats,repeatRate:custs.size>0?((repeats/custs.size)*100).toFixed(1):0};
+}
+
+/* ── Render ── */
+function render(){
+  const[d0,d1]=getRange();
+  const cid=getCID();
+  const rows=filteredRAW();
+  const s=computeFromRaw(rows);
+  const numDays=d1-d0+1;
+
+  /* KPIs */
+  document.getElementById('kv0').textContent=fmt(s.orders);
+  document.getElementById('kv1').textContent=fmt(s.custs);
+  document.getElementById('kv2').textContent=s.orders>0?(s.total/s.orders).toFixed(2)+' items':'—';
+  document.getElementById('kv3').textContent=s.repeatRate+'%';
+  document.getElementById('kv4').textContent=fmt(s.total);
+
+  /* KPI deltas — show vs full dataset when filtered */
+  const allS={orders:15000,custs:13871,total:32306,aov:2.15,repeatRate:3.7};
+  if(d0===0&&d1===30&&!cid){
+    ['kd0','kd1','kd2','kd3','kd4'].forEach(id=>document.getElementById(id).textContent='');
+  } else {
+    const aov=s.orders>0?(s.total/s.orders):0;
+    const setDelta=(id,val,cls,suf='')=>{const el=document.getElementById(id);el.textContent=deltaStr(val,suf);el.className='kdelta '+cls};
+    setDelta('kd0',s.orders-allS.orders,deltaClass(s.orders-allS.orders),' vs full');
+    setDelta('kd1',s.custs-allS.custs,deltaClass(s.custs-allS.custs),' vs full');
+    const aovD=+(aov-allS.aov).toFixed(2);
+    document.getElementById('kd2').textContent=(aovD>=0?'▲ +':'▼ ')+Math.abs(aovD)+' vs full';
+    document.getElementById('kd2').className='kdelta '+deltaClass(aovD);
+    document.getElementById('kd3').textContent='';
+    document.getElementById('kd4').textContent='';
+  }
+
+  /* Callouts */
+  const dailySlice=DAILY.slice(d0,d1+1);
+  const maxOrders=Math.max(...dailySlice.map(d=>d.orders));
+  const peakIdx=dailySlice.findIndex(d=>d.orders===maxOrders);
+  document.getElementById('cc0v').textContent=DL[d0+peakIdx]+' · '+maxOrders.toLocaleString()+' orders';
+  document.getElementById('cc0d').textContent=(dailySlice[peakIdx].items).toLocaleString()+' items dispatched · AOV '+dailySlice[peakIdx].aov.toFixed(2)+' items/order';
+  document.getElementById('cc2v').textContent='93.2% single-purchase customers';
+  document.getElementById('cc2d').textContent='Only 3.7% of customers returned. Loyalty programme or re-engagement campaign could materially lift LTV.';
+
+  /* Banner */
+  const sel=document.getElementById('dateFilter');
+  const banner=document.getElementById('banner');
+  if(cid||sel.value!=='all'){
+    banner.style.display='flex';
+    const parts=[];
+    if(sel.value!=='all')parts.push(sel.options[sel.selectedIndex].text);
+    if(cid)parts.push('Customer #'+cid);
+    document.getElementById('bannerText').textContent='Active filters: '+parts.join(' · ');
+    document.getElementById('bannerTag').textContent=rows.length.toLocaleString()+' records matched';
+  } else {banner.style.display='none';}
+
+  /* Trend chart */
+  const tLabels=DL.slice(d0,d1+1);
+  const tData=dailySlice.map(d=>d[activeMetric]);
+  const metaMap={orders:{label:'Daily Orders',color:'#3fb950'},items:{label:'Items Dispatched',color:'#ff7b72'},custs:{label:'Unique Customers',color:'#58a6ff'},aov:{label:'Average Basket Size',color:'#f0883e'}};
+  const m=metaMap[activeMetric];
+  document.getElementById('trendTitle').textContent=m.label+' Trend · '+DL[d0]+' – '+DL[d1];
+  if(tChart){tChart.destroy();tChart=null;}
+  const tlc=document.getElementById('trendChart');
+  if(tlc){
+    tChart=new Chart(tlc,{type:'line',data:{labels:tLabels,datasets:[{label:m.label,data:tData,borderColor:m.color,backgroundColor:m.color+'14',borderWidth:2,pointRadius:tLabels.length>20?2:3,pointBackgroundColor:m.color,pointBorderColor:'#0d1117',pointBorderWidth:1.5,fill:true,tension:0.35}]},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:4,right:6}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1c2128',borderColor:m.color,borderWidth:0.5,titleColor:'#8b949e',bodyColor:m.color,padding:9,callbacks:{label:ctx=>' '+ctx.parsed.y.toLocaleString()}}},scales:{x:{grid:{color:GC,drawTicks:false},ticks:{color:TC,font:{size:9},maxRotation:45,autoSkip:true,maxTicksLimit:10},border:{color:GC}},y:{grid:{color:GC},ticks:{color:TC,font:{size:9},callback:v=>v>=1000?(v/1000).toFixed(1)+'k':v},border:{color:GC}}}}});
+  }
+
+  /* WoW table */
+  const wbody=document.getElementById('wowBody');
+  wbody.innerHTML='';
+  WEEKS.forEach((w,i)=>{
+    const prev=WEEKS[i-1];
+    const delta=prev?Math.round(((w.orders-prev.orders)/prev.orders)*100):null;
+    const cls=delta===null?'neu':deltaClass(delta);
+    const pillTxt=delta===null?'Baseline':(delta>0?'▲ +':'▼ ')+Math.abs(delta)+'%';
+    wbody.innerHTML+=`<tr><td>${w.label}</td><td>${w.orders.toLocaleString()}</td><td>${w.custs.toLocaleString()}</td><td>${w.aov.toFixed(2)}</td><td><span class="pill ${cls}">${pillTxt}</span></td></tr>`;
+  });
+
+  /* WoW bar chart */
+  if(wChart){wChart.destroy();wChart=null;}
+  const wlc=document.getElementById('wowChart');
+  if(wlc){
+    wChart=new Chart(wlc,{type:'bar',data:{labels:WEEKS.map(w=>w.label.split(' ')[0]),datasets:[{label:'Orders',data:WEEKS.map(w=>w.orders),backgroundColor:'#3fb95060',borderColor:'#3fb950',borderWidth:1,borderRadius:3},{label:'Items',data:WEEKS.map(w=>w.items),backgroundColor:'#58a6ff40',borderColor:'#58a6ff',borderWidth:1,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:2}},plugins:{legend:{display:true,position:'top',align:'end',labels:{color:'#484f58',font:{size:9},boxWidth:8,boxHeight:8,padding:10}},tooltip:{backgroundColor:'#1c2128',borderColor:'#30363d',borderWidth:0.5,titleColor:'#8b949e',bodyColor:'#c9d1d9',padding:8}},scales:{x:{grid:{display:false},ticks:{color:TC,font:{size:9}},border:{color:GC}},y:{grid:{color:GC},ticks:{color:TC,font:{size:9},callback:v=>v>=1000?(v/1000).toFixed(1)+'k':v},border:{color:GC}}}}});
+  }
+
+  /* Product velocity table */
+  const pbody=document.getElementById('prodBody');
+  const maxOrd=TOP_PRODS[0].orders;
+  pbody.innerHTML='';
+  TOP_PRODS.forEach((p,i)=>{
+    const bw=Math.round((p.orders/maxOrd)*80);
+    pbody.innerHTML+=`<tr><td>···${p.pid.slice(-6)}</td><td>${p.orders} orders</td><td><div class="bar-cell"><div class="mini-bar" style="width:${bw}px"></div><span style="font-size:10px;color:#484f58">${p.days}d</span></div></td></tr>`;
+  });
+
+  /* Customer segmentation chart */
+  if(sChart){sChart.destroy();sChart=null;}
+  const slc=document.getElementById('segChart');
+  if(slc){
+    sChart=new Chart(slc,{type:'bar',data:{labels:SEG.map(s=>s.label),datasets:[{label:'Customers',data:SEG.map(s=>s.count),backgroundColor:SEG.map(s=>s.color+'50'),borderColor:SEG.map(s=>s.color),borderWidth:1,borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:8}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1c2128',borderColor:'#30363d',borderWidth:0.5,titleColor:'#8b949e',bodyColor:'#c9d1d9',padding:8,callbacks:{label:ctx=>' '+ctx.parsed.x.toLocaleString()+' customers ('+SEG[ctx.dataIndex].pct+'%)'}}},scales:{x:{grid:{color:GC},ticks:{color:TC,font:{size:9},callback:v=>v>=1000?(v/1000).toFixed(1)+'k':v},border:{color:GC}},y:{grid:{display:false},ticks:{color:'#8b949e',font:{size:9}},border:{color:GC}}}}});
+  }
+
+  /* Basket size chart */
+  if(bsChart){bsChart.destroy();bsChart=null;}
+  const blc=document.getElementById('bsChart');
+  const distData=['2','3','4','5','6+'].map(k=>s.dist[k]||0);
+  if(blc&&rows.length>0){
+    bsChart=new Chart(blc,{type:'bar',data:{labels:['2 items','3 items','4 items','5 items','6+ items'],datasets:[{label:'Orders',data:distData,backgroundColor:['#3fb95060','#3fb95048','#3fb95034','#3fb95020','#3fb95014'],borderColor:['#3fb950','#3fb980','#3fbaa0','#3fc0b8','#3fd0d0'],borderWidth:0.5,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:2}},plugins:{legend:{display:false},tooltip:{backgroundColor:'#1c2128',borderColor:'#30363d',borderWidth:0.5,titleColor:'#8b949e',bodyColor:'#3fb950',padding:8,callbacks:{label:ctx=>' '+ctx.parsed.y.toLocaleString()+' orders'}}},scales:{x:{grid:{display:false},ticks:{color:TC,font:{size:10},maxRotation:0,autoSkip:false},border:{color:GC}},y:{grid:{color:GC},ticks:{color:TC,font:{size:9},callback:v=>v>=1000?(v/1000).toFixed(1)+'k':v},border:{color:GC}}}}});
+  }
+
+  /* Customer detail */
+  if(cid){
+    document.getElementById('custSection').style.display='block';
+    document.getElementById('custTitle').textContent='Customer #'+cid+' · Purchase History ('+rows.length+' records)';
+    const cb=document.getElementById('custBody');
+    cb.innerHTML='';
+    if(rows.length===0){
+      cb.innerHTML='<tr><td colspan="4" style="color:#30363d;text-align:center;padding:16px">No records found for Customer #'+cid+' in this date range</td></tr>';
+    } else {
+      [...rows].sort((a,b)=>a[2]-b[2]).forEach(r=>{
+        const sizeLabel=r[3]<=2?'Small':r[3]<=4?'Medium':'Large';
+        cb.innerHTML+=`<tr><td>${DATES[r[2]]}</td><td style="color:#58a6ff">${r[1]}</td><td><span class="badge">${r[3]}</span></td><td style="color:#484f58">${sizeLabel}</td></tr>`;
+      });
+    }
+  } else {
+    document.getElementById('custSection').style.display='none';
+  }
+}
+
+/* ── Event listeners ── */
+document.getElementById('dateFilter').addEventListener('change',render);
+document.querySelectorAll('.mtbtn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.mtbtn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    activeMetric=this.dataset.m;
+    render();
+  });
+});
+
+const cidInput=document.getElementById('cidInput');
+const acList=document.getElementById('acList');
+cidInput.addEventListener('input',function(){
+  const v=this.value.trim();
+  if(v.length<3){acList.style.display='none';return;}
+  const matches=ALL_CIDS.filter(c=>c.startsWith(v)).slice(0,6);
+  if(!matches.length){acList.style.display='none';return;}
+  acList.innerHTML=matches.map(id=>`<div class="ac-item" data-id="${id}">${id}</div>`).join('');
+  acList.style.display='block';
+  acList.querySelectorAll('.ac-item').forEach(el=>{
+    el.addEventListener('mousedown',function(e){e.preventDefault();cidInput.value=this.dataset.id;acList.style.display='none';render();});
+  });
+});
+cidInput.addEventListener('blur',()=>setTimeout(()=>acList.style.display='none',200));
+cidInput.addEventListener('keydown',function(e){if(e.key==='Enter'){acList.style.display='none';render();}});
+document.getElementById('resetBtn').addEventListener('click',function(){
+  document.getElementById('dateFilter').value='all';
+  cidInput.value='';acList.style.display='none';render();
+});
+
+render();
+</script>
